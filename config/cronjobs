@@ -1,2 +1,2 @@
-* * * * * echo "hello world - vinicius" >> /talendinfra/cron.log 2>&1
+* * * * * sh /talendinfra/jobs/j_vendor_load_mdb_authors_0.1/j_vendor_load_mdb_authors/j_vendor_load_mdb_authors_run.sh >> /talendinfra/cron.log 2>&1 
 # empty new line
