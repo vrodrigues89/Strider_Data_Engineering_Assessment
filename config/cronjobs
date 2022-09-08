@@ -1,0 +1,2 @@
+* * * * * echo "hello world - vinicius" >> /talendinfra/cron.log 2>&1
+# empty new line
