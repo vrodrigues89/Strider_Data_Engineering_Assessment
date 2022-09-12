@@ -2,4 +2,3 @@ data/staging/*
 data/target/*
 config/mariadb/*
 notes.txt
-projects/dbOperation.zip
