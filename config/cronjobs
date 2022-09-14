@@ -1,3 +1,3 @@
-* * * * * sh /talendinfra/jobs/j_00_vendor_load_tables_orchestrator_0.1/j_00_vendor_load_tables_orchestrator/j_00_vendor_load_tables_orchestrator_run.sh >> /talendinfra/j_00_vendor_load_tables_orchestrator_run.log 2>&1 
-* * * * * sh /talendinfra/jobs/j_00_internal_load_tables_orchestrator_0.1/j_00_internal_load_tables_orchestrator/j_00_internal_load_tables_orchestrator_run.sh >> /talendinfra/j_00_internal_load_tables_orchestrator_run.log 2>&1 
+* * * * * sh /talendinfra/jobs/j_00_vendor_load_tables_orchestrator_0.1/j_00_vendor_load_tables_orchestrator/j_00_vendor_load_tables_orchestrator_run.sh >> /talendinfra/cron.log 2>&1 
+* * * * * sh /talendinfra/jobs/j_00_internal_load_tables_orchestrator_0.1/j_00_internal_load_tables_orchestrator/j_00_internal_load_tables_orchestrator_run.sh >> /talendinfra/cron.log 2>&1 
 # empty new line
