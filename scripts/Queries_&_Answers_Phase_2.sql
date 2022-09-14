@@ -65,7 +65,6 @@ ON m.title = s.movie_title
 /* Question 6 - Given the stream duration (start and end time) and the movie duration, how many users watched at least 50% of any movie in the last week of the month (7 days)? */
 /* Resp. 739 users */
 
-
 SELECT COUNT(DISTINCT user_email) QTY
 FROM
 (
