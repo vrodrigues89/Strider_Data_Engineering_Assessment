@@ -2,5 +2,6 @@ data/staging/*
 data/target/*
 data/source/vendor/*
 data/source/internal/processed/*
+ftp/vendor/processed/*
 config/mariadb/*
 notes.txt
