@@ -1,7 +1,8 @@
 data/staging/*
 data/target/*
 data/source/vendor/*
-data/source/internal/processed/*
+data/source/internal/*
 ftp/vendor/processed/*
 config/mariadb/*
+images/*
 notes.txt
