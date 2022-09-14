@@ -60,12 +60,16 @@ FROM `data`.reviews;
 
 ---------------
 
+SELECT count(*) FROM INFORMATION_SCHEMA.TABLES
+where TABLE_NAME = 'movies'
+
 drop table movies
 
 select * from movies
 order by 1
 
 ------------
+
 
 drop table streams
 
@@ -95,6 +99,8 @@ drop table users
 
 select * from users 
 order by 1
+
+select nvl(max(id),0)+1 as MaxID from data.users
 
 SELECT count(*) FROM INFORMATION_SCHEMA.TABLES
 where TABLE_NAME = 'users'
