@@ -46,6 +46,9 @@ import java.util.Comparator;
 
 
 
+	//the import part of tJava_4
+	//import java.util.List;
+
 	//the import part of tJava_1
 	//import java.util.List;
 
@@ -312,6 +315,15 @@ private class TalendException extends Exception {
 					tFTPConnection_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
+			public void tJava_4_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tJava_4_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
 			public void tPostjob_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
@@ -417,6 +429,11 @@ resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThrea
 
 			}
 			public void tFTPConnection_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+
+resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
+
+			}
+			public void tJava_4_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
 
@@ -685,6 +702,7 @@ public void tFTPConnection_1Process(final java.util.Map<String, Object> globalMa
 
 
 
+		
 
 
 	
@@ -769,7 +787,7 @@ int connectionTimeout_tFTPConnection_1 = Integer.valueOf(0);
         ftp_tFTPConnection_1.setStrictReplyParsing(true);
         ftp_tFTPConnection_1.connect("pureftp",21);
  
-	final String decryptedPassword_tFTPConnection_1 = routines.system.PasswordEncryptUtil.decryptPassword("enc:routine.encryption.key.v1:Vm2sZbNO9o7xMIABkjW3CwqjOcn70c9OAJQMkHkyFq0=");
+	final String decryptedPassword_tFTPConnection_1 = routines.system.PasswordEncryptUtil.decryptPassword("enc:routine.encryption.key.v1:5CMmMuHCBOAlrwEhCW05fvyFVQW7kzjhATIKiVGO5ns=");
 
         boolean isLoginSuccessful_tFTPConnection_1 = ftp_tFTPConnection_1.login("user", decryptedPassword_tFTPConnection_1);
 
@@ -872,6 +890,10 @@ int connectionTimeout_tFTPConnection_1 = Integer.valueOf(0);
 ok_Hash.put("tFTPConnection_1", true);
 end_Hash.put("tFTPConnection_1", System.currentTimeMillis());
 
+				if(execStat){   
+   	 				runStat.updateStatOnConnection("OnComponentOk7", 0, "ok");
+				}
+				tJava_4Process(globalMap);
 
 
 
@@ -929,6 +951,200 @@ end_Hash.put("tFTPConnection_1", System.currentTimeMillis());
 		
 
 		globalMap.put("tFTPConnection_1_SUBPROCESS_STATE", 1);
+	}
+	
+
+public void tJava_4Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tJava_4_SUBPROCESS_STATE", 0);
+
+ final boolean execStat = this.execStat;
+	
+		String iterateId = "";
+	
+	
+	String currentComponent = "";
+	java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
+
+	try {
+			// TDI-39566 avoid throwing an useless Exception
+			boolean resumeIt = true;
+			if (globalResumeTicket == false && resumeEntryMethodName != null) {
+				String currentMethodName = new java.lang.Exception().getStackTrace()[0].getMethodName();
+				resumeIt = resumeEntryMethodName.equals(currentMethodName);
+			}
+			if (resumeIt || globalResumeTicket) { //start the resume
+				globalResumeTicket = true;
+
+
+
+
+
+	
+	/**
+	 * [tJava_4 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tJava_4", false);
+		start_Hash.put("tJava_4", System.currentTimeMillis());
+		
+	
+	currentComponent="tJava_4";
+
+	
+		int tos_count_tJava_4 = 0;
+		
+
+
+System.out.println("FTP has been successfully connected!");
+
+
+ 
+
+
+
+/**
+ * [tJava_4 begin ] stop
+ */
+	
+	/**
+	 * [tJava_4 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+	tos_count_tJava_4++;
+
+/**
+ * [tJava_4 main ] stop
+ */
+	
+	/**
+	 * [tJava_4 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_4 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tJava_4 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_4 process_data_end ] stop
+ */
+	
+	/**
+	 * [tJava_4 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+ok_Hash.put("tJava_4", true);
+end_Hash.put("tJava_4", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tJava_4 end ] stop
+ */
+				}//end the resume
+
+				
+
+
+
+	
+			}catch(java.lang.Exception e){	
+				
+				TalendException te = new TalendException(e, currentComponent, globalMap);
+				
+				throw te;
+			}catch(java.lang.Error error){	
+				
+					runStat.stopThreadStat();
+				
+				throw error;
+			}finally{
+				
+				try{
+					
+	
+	/**
+	 * [tJava_4 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_4 finally ] stop
+ */
+				}catch(java.lang.Exception e){	
+					//ignore
+				}catch(java.lang.Error error){
+					//ignore
+				}
+				resourceMap = null;
+			}
+		
+
+		globalMap.put("tJava_4_SUBPROCESS_STATE", 1);
 	}
 	
 
@@ -1384,7 +1600,7 @@ public void tFileList_1Process(final java.util.Map<String, Object> globalMap) th
  
      
     
-  String directory_tFileList_1 = "C:/talendinfra/data/source/vendor";
+  String directory_tFileList_1 = "/talendinfra/data/source/vendor";
   final java.util.List<String> maskList_tFileList_1 = new java.util.ArrayList<String>();
   final java.util.List<java.util.regex.Pattern> patternList_tFileList_1 = new java.util.ArrayList<java.util.regex.Pattern>(); 
     maskList_tFileList_1.add("*authors*.json"); 
@@ -1542,7 +1758,7 @@ int nb_file_tFTPPut_1 = 0;
           ftp_tFTPPut_1.setFileType(org.apache.commons.net.ftp.FTP.ASCII_FILE_TYPE);
 
         String rootDir_tFTPPut_1 = ftp_tFTPPut_1.printWorkingDirectory();
-        String remotedir_tFTPPut_1 = ("/vendor/processed").replaceAll("\\\\", "/");
+        String remotedir_tFTPPut_1 = ("vendor/processed/").replaceAll("\\\\", "/");
         boolean cwdSuccess_tFTPPut_1 = ftp_tFTPPut_1.changeWorkingDirectory(remotedir_tFTPPut_1);
 
         if (!cwdSuccess_tFTPPut_1) {
@@ -1741,6 +1957,7 @@ globalMap.put("tFTPPut_1_ERROR_MESSAGE",e_tFTPPut_1.getMessage());
     }
 	globalMap.put("tFTPPut_1_TRANSFER_MESSAGES", sb_tFTPPut_1.toString());
 	
+		  		ftp_tFTPPut_1.changeWorkingDirectory(rootDir_tFTPPut_1);
         if(nb_file_tFTPPut_1 == 0 && !listtFTPPut_1.isEmpty()){
             throw new RuntimeException("Error during component operation!");
         }
@@ -2159,7 +2376,7 @@ public void tFileList_2Process(final java.util.Map<String, Object> globalMap) th
  
      
     
-  String directory_tFileList_2 = "C:/talendinfra/data/source/vendor";
+  String directory_tFileList_2 = "/talendinfra/data/source/vendor";
   final java.util.List<String> maskList_tFileList_2 = new java.util.ArrayList<String>();
   final java.util.List<java.util.regex.Pattern> patternList_tFileList_2 = new java.util.ArrayList<java.util.regex.Pattern>(); 
     maskList_tFileList_2.add("*authors*.json"); 
@@ -2339,7 +2556,7 @@ public void tFileList_2Process(final java.util.Map<String, Object> globalMap) th
 				System.err.println(errorMessageFileDoesnotExistsOrIsNotAFile_tFileCopy_1);
 				globalMap.put("tFileCopy_1_ERROR_MESSAGE", errorMessageFileDoesnotExistsOrIsNotAFile_tFileCopy_1);
 		}
-        String desDirName_tFileCopy_1 = "C:/talendinfra/data/source/vendor/processed";
+        String desDirName_tFileCopy_1 = "/talendinfra/data/source/vendor/processed";
 
 		String desFileName_tFileCopy_1 =  TalendDate.formatDate("yyyyMMdd",TalendDate.getCurrentDate()) + "_" + ((String)globalMap.get("tFileList_2_CURRENT_FILE")) ;
 
@@ -2645,7 +2862,7 @@ public void tJava_2Process(final java.util.Map<String, Object> globalMap) throws
 
 
 System.out.println("File " + 
-((String)globalMap.get("tFileList_2_CURRENT_FILE")) + " has been successfully transfered to C:/talendinfra/data/source/vendor/processed!" + "\n");
+((String)globalMap.get("tFileList_2_CURRENT_FILE")) + " has been successfully transfered to /talendinfra/data/source/vendor/processed!" + "\n");
 
 
  
@@ -2854,7 +3071,7 @@ public void tFTPFileList_1Process(final java.util.Map<String, Object> globalMap)
     String rootDir_tFTPFileList_1 = ftp_tFTPFileList_1.printWorkingDirectory();
     List<org.apache.commons.net.ftp.FTPFile> fileListTemp_tFTPFileList_1 = new java.util.ArrayList<>();
 
-    String remotedir_tFTPFileList_1 = ("/vendor/").replaceAll("\\\\","/");
+    String remotedir_tFTPFileList_1 = ("vendor/").replaceAll("\\\\","/");
     boolean cwdSuccess_tFTPFileList_1 = ftp_tFTPFileList_1.changeWorkingDirectory(remotedir_tFTPFileList_1);
 
     if (!cwdSuccess_tFTPFileList_1) {
@@ -2869,6 +3086,7 @@ public void tFTPFileList_1Process(final java.util.Map<String, Object> globalMap)
 	
 
 
+    ftp_tFTPFileList_1.changeWorkingDirectory(rootDir_tFTPFileList_1);
     for (String filemask_tFTPFileList_1 : maskList_tFTPFileList_1) {
         java.util.regex.Pattern fileNamePattern_tFTPFileList_1 = java.util.regex.Pattern.compile(filemask_tFTPFileList_1.replaceAll("\\.", "\\\\.").replaceAll("\\*", ".*"));
 	
@@ -2984,11 +3202,6 @@ int nb_file_tFTPDelete_1 = 0;
 			
 
   		
-            boolean cwdSuccess_tFTPDelete_1 = ftp_tFTPDelete_1.changeWorkingDirectory("/vendor");
-
-            if (!cwdSuccess_tFTPDelete_1) {
-                throw new RuntimeException("Failed to change remote directory. " + ftp_tFTPDelete_1.getReplyString());
-            }
         String rootWorkDir_tFTPDelete_1 = ftp_tFTPDelete_1.printWorkingDirectory();
         java.util.List<java.util.Map<String,String>> listtFTPDelete_1 = new java.util.ArrayList<>();
             java.util.Map<String,String> maptFTPDelete_10 = new java.util.HashMap<String,String>();
@@ -3021,6 +3234,7 @@ int nb_file_tFTPDelete_1 = 0;
 			for (String keytFTPDelete_1 : keySettFTPDelete_1) {
 				
 				String filemasktFTPDelete_1 = keytFTPDelete_1;
+						filemasktFTPDelete_1 = "vendor/" + "/" + filemasktFTPDelete_1;
 				String dirtFTPDelete_1 = null;
 				String masktFTPDelete_1 = null;
 					masktFTPDelete_1 = filemasktFTPDelete_1.replaceAll("\\\\", "/") ;
@@ -3957,6 +4171,6 @@ if (execStat) {
     ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- *     94898 characters generated by Talend Open Studio for Data Integration 
- *     on the 13 de setembro de 2022 21:10:07 BRT
+ *     98172 characters generated by Talend Open Studio for Data Integration 
+ *     on the 14 de setembro de 2022 14:00:37 BRT
  ************************************************************************************************/

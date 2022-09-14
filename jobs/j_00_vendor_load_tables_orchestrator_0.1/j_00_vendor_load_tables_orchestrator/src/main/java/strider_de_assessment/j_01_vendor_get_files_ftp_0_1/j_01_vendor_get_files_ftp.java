@@ -46,6 +46,9 @@ import java.util.Comparator;
 
 
 
+	//the import part of tJava_2
+	//import java.util.List;
+
 	//the import part of tJava_1
 	//import java.util.List;
 
@@ -306,6 +309,15 @@ private class TalendException extends Exception {
 					tFTPConnection_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
+			public void tJava_2_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tJava_2_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
 			public void tPostjob_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
@@ -348,6 +360,11 @@ resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThrea
 
 			}
 			public void tFTPConnection_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+
+resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
+
+			}
+			public void tJava_2_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
 
@@ -596,6 +613,7 @@ public void tFTPConnection_1Process(final java.util.Map<String, Object> globalMa
 
 
 
+		
 
 
 	
@@ -670,7 +688,7 @@ int connectionTimeout_tFTPConnection_1 = Integer.valueOf(0);
         ftp_tFTPConnection_1 = new org.apache.commons.net.ftp.FTPClient();
     }
     
-        ftp_tFTPConnection_1.setControlEncoding("UTF-8");
+        ftp_tFTPConnection_1.setControlEncoding("ISO-8859-15");
 
 
         if (connectionTimeout_tFTPConnection_1 > 0) {
@@ -680,7 +698,7 @@ int connectionTimeout_tFTPConnection_1 = Integer.valueOf(0);
         ftp_tFTPConnection_1.setStrictReplyParsing(true);
         ftp_tFTPConnection_1.connect("pureftp",21);
  
-	final String decryptedPassword_tFTPConnection_1 = routines.system.PasswordEncryptUtil.decryptPassword("enc:routine.encryption.key.v1:h94b8PtR29CcYArjPxI2ep7tCaob9n0MlqEJ0HOxYKc=");
+	final String decryptedPassword_tFTPConnection_1 = routines.system.PasswordEncryptUtil.decryptPassword("enc:routine.encryption.key.v1:3zufkxG4zdtlL1mGn95Tg6VUHbgUyFX5SsPR+1mUxPQ=");
 
         boolean isLoginSuccessful_tFTPConnection_1 = ftp_tFTPConnection_1.login("user", decryptedPassword_tFTPConnection_1);
 
@@ -783,6 +801,10 @@ int connectionTimeout_tFTPConnection_1 = Integer.valueOf(0);
 ok_Hash.put("tFTPConnection_1", true);
 end_Hash.put("tFTPConnection_1", System.currentTimeMillis());
 
+				if(execStat){   
+   	 				runStat.updateStatOnConnection("OnComponentOk5", 0, "ok");
+				}
+				tJava_2Process(globalMap);
 
 
 
@@ -840,6 +862,200 @@ end_Hash.put("tFTPConnection_1", System.currentTimeMillis());
 		
 
 		globalMap.put("tFTPConnection_1_SUBPROCESS_STATE", 1);
+	}
+	
+
+public void tJava_2Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tJava_2_SUBPROCESS_STATE", 0);
+
+ final boolean execStat = this.execStat;
+	
+		String iterateId = "";
+	
+	
+	String currentComponent = "";
+	java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
+
+	try {
+			// TDI-39566 avoid throwing an useless Exception
+			boolean resumeIt = true;
+			if (globalResumeTicket == false && resumeEntryMethodName != null) {
+				String currentMethodName = new java.lang.Exception().getStackTrace()[0].getMethodName();
+				resumeIt = resumeEntryMethodName.equals(currentMethodName);
+			}
+			if (resumeIt || globalResumeTicket) { //start the resume
+				globalResumeTicket = true;
+
+
+
+
+
+	
+	/**
+	 * [tJava_2 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tJava_2", false);
+		start_Hash.put("tJava_2", System.currentTimeMillis());
+		
+	
+	currentComponent="tJava_2";
+
+	
+		int tos_count_tJava_2 = 0;
+		
+
+
+System.out.println("FTP has been successfully connected!");
+
+
+ 
+
+
+
+/**
+ * [tJava_2 begin ] stop
+ */
+	
+	/**
+	 * [tJava_2 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_2";
+
+	
+
+ 
+
+
+	tos_count_tJava_2++;
+
+/**
+ * [tJava_2 main ] stop
+ */
+	
+	/**
+	 * [tJava_2 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_2";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_2 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tJava_2 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_2";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_2 process_data_end ] stop
+ */
+	
+	/**
+	 * [tJava_2 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_2";
+
+	
+
+ 
+
+ok_Hash.put("tJava_2", true);
+end_Hash.put("tJava_2", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tJava_2 end ] stop
+ */
+				}//end the resume
+
+				
+
+
+
+	
+			}catch(java.lang.Exception e){	
+				
+				TalendException te = new TalendException(e, currentComponent, globalMap);
+				
+				throw te;
+			}catch(java.lang.Error error){	
+				
+					runStat.stopThreadStat();
+				
+				throw error;
+			}finally{
+				
+				try{
+					
+	
+	/**
+	 * [tJava_2 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_2";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_2 finally ] stop
+ */
+				}catch(java.lang.Exception e){	
+					//ignore
+				}catch(java.lang.Error error){
+					//ignore
+				}
+				resourceMap = null;
+			}
+		
+
+		globalMap.put("tJava_2_SUBPROCESS_STATE", 1);
 	}
 	
 
@@ -1380,8 +1596,10 @@ int nb_file_tFTPGet_1 = 0;
         org.apache.commons.net.ftp.FTPClient ftp_tFTPGet_1 = null;
             ftp_tFTPGet_1 = (org.apache.commons.net.ftp.FTPClient) globalMap.get("conn_tFTPConnection_1");
 			
+				String rootDir_tFTPGet_1 = ftp_tFTPGet_1.printWorkingDirectory();
 			
-            ftp_tFTPGet_1.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
+			
+            ftp_tFTPGet_1.setFileType(org.apache.commons.net.ftp.FTP.ASCII_FILE_TYPE);
         final java.util.List<String> msg_tFTPGet_1 = new java.util.ArrayList<String>();
         FTPGetter_tFTPGet_1 getter_tFTPGet_1 = new FTPGetter_tFTPGet_1() {
             @Override
@@ -1410,7 +1628,7 @@ int nb_file_tFTPGet_1 = 0;
             }
         };
         getter_tFTPGet_1.ftpClient = ftp_tFTPGet_1;
-    String remotedir_tFTPGet_1 = "/vendor/";
+    String remotedir_tFTPGet_1 = "vendor/";
     if (!".".equals(remotedir_tFTPGet_1)) {
         boolean cwdSuccess_tFTPGet_1 = ftp_tFTPGet_1.changeWorkingDirectory(remotedir_tFTPGet_1);
 
@@ -1423,7 +1641,7 @@ java.util.List<String> maskList_tFTPGet_1 = new java.util.ArrayList<String>();
   maskList_tFTPGet_1.add("*authors*.json");
   maskList_tFTPGet_1.add("*books*.json");
   maskList_tFTPGet_1.add("*reviews*.json");
-String localdir_tFTPGet_1  = "C:/talendinfra/data/source/vendor/";  
+String localdir_tFTPGet_1  = "/talendinfra/data/source/vendor/";  
 //create folder if local direcotry (assigned by property) not exists
 java.io.File dirHandle_tFTPGet_1 = new java.io.File(localdir_tFTPGet_1);
 
@@ -1563,6 +1781,7 @@ nb_file_tFTPGet_1 = getter_tFTPGet_1.count;
 	}
 	globalMap.put("tFTPGet_1_TRANSFER_MESSAGES", sb_tFTPGet_1.toString());
 
+	  		ftp_tFTPGet_1.changeWorkingDirectory(rootDir_tFTPGet_1);
 	globalMap.put("tFTPGet_1_NB_FILE",nb_file_tFTPGet_1);
 
 
@@ -2256,6 +2475,6 @@ if (execStat) {
     ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- *     56904 characters generated by Talend Open Studio for Data Integration 
- *     on the 13 de setembro de 2022 21:10:06 BRT
+ *     60403 characters generated by Talend Open Studio for Data Integration 
+ *     on the 14 de setembro de 2022 14:00:36 BRT
  ************************************************************************************************/
