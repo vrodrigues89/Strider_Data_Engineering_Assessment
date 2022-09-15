@@ -116,4 +116,14 @@ docker ps
 * Get the CONTAINER ID from talendinfra-crontab IMAGE and run the command below for showing container logs
 docker logs <CONTAINER ID>
 
+### Accessment Details:
 
+## Phase 1
+
+## Overview
+Due to unknown reasons, the vendor can delete and/or update existing records content (authors, books, and reviews data). Since we want to extract the best of the data we should retain historical records even if they got deleted on newly received dumps and avoid duplications in case of existing records updates.
+Keeping that in mind, build an Extract, Transform, Load (ETL) pipeline that will take this data (and any newly received data) and move it into a **production-ready database** that can be easily and performant queried to answer questions for the business.
+
+* It was created the following ETL jobs for loading vendor files:
+
+![Screenshot]($pwd\images\vendor_jobs.jpg)
