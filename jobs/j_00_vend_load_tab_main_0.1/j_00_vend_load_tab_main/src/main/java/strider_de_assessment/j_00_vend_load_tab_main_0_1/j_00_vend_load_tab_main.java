@@ -285,6 +285,24 @@ private class TalendException extends Exception {
 	}
 }
 
+			public void tFileList_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tFileList_1_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
+			public void tFileDelete_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tFileList_1_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
 			public void tRunJob_1_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
@@ -330,6 +348,11 @@ private class TalendException extends Exception {
 					tRunJob_5_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
+			public void tFileList_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+
+resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
+
+			}
 			public void tRunJob_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
@@ -360,6 +383,491 @@ resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThrea
 
 
 
+
+public void tFileList_1Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tFileList_1_SUBPROCESS_STATE", 0);
+
+ final boolean execStat = this.execStat;
+	
+		String iterateId = "";
+	
+	
+	String currentComponent = "";
+	java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
+
+	try {
+			// TDI-39566 avoid throwing an useless Exception
+			boolean resumeIt = true;
+			if (globalResumeTicket == false && resumeEntryMethodName != null) {
+				String currentMethodName = new java.lang.Exception().getStackTrace()[0].getMethodName();
+				resumeIt = resumeEntryMethodName.equals(currentMethodName);
+			}
+			if (resumeIt || globalResumeTicket) { //start the resume
+				globalResumeTicket = true;
+
+
+
+		
+
+
+	
+	/**
+	 * [tFileList_1 begin ] start
+	 */
+
+				
+			int NB_ITERATE_tFileDelete_1 = 0; //for statistics
+			
+
+	
+		
+		ok_Hash.put("tFileList_1", false);
+		start_Hash.put("tFileList_1", System.currentTimeMillis());
+		
+	
+	currentComponent="tFileList_1";
+
+	
+		int tos_count_tFileList_1 = 0;
+		
+	
+ 
+     
+    
+  String directory_tFileList_1 = "/talendinfra/data/staging";
+  final java.util.List<String> maskList_tFileList_1 = new java.util.ArrayList<String>();
+  final java.util.List<java.util.regex.Pattern> patternList_tFileList_1 = new java.util.ArrayList<java.util.regex.Pattern>(); 
+    maskList_tFileList_1.add("*authors*.csv"); 
+    maskList_tFileList_1.add("*books*.csv"); 
+    maskList_tFileList_1.add("*reviews*.csv");  
+  for (final String filemask_tFileList_1 : maskList_tFileList_1) {
+	String filemask_compile_tFileList_1 = filemask_tFileList_1;
+	
+		filemask_compile_tFileList_1 = org.apache.oro.text.GlobCompiler.globToPerl5(filemask_tFileList_1.toCharArray(), org.apache.oro.text.GlobCompiler.DEFAULT_MASK);
+	
+		java.util.regex.Pattern fileNamePattern_tFileList_1 = java.util.regex.Pattern.compile(filemask_compile_tFileList_1);
+	patternList_tFileList_1.add(fileNamePattern_tFileList_1);
+  }
+  int NB_FILEtFileList_1 = 0;
+
+  final boolean case_sensitive_tFileList_1 = true;
+	
+	
+	
+    final java.util.List<java.io.File> list_tFileList_1 = new java.util.ArrayList<java.io.File>();
+    final java.util.Set<String> filePath_tFileList_1 = new java.util.HashSet<String>();
+	java.io.File file_tFileList_1 = new java.io.File(directory_tFileList_1);
+     
+		file_tFileList_1.listFiles(new java.io.FilenameFilter() {
+			public boolean accept(java.io.File dir, String name) {
+				java.io.File file = new java.io.File(dir, name);
+                if (!file.isDirectory()) {
+                	
+    	String fileName_tFileList_1 = file.getName();
+		for (final java.util.regex.Pattern fileNamePattern_tFileList_1 : patternList_tFileList_1) {
+          	if (fileNamePattern_tFileList_1.matcher(fileName_tFileList_1).matches()){
+					if(!filePath_tFileList_1.contains(file.getAbsolutePath())) {
+			          list_tFileList_1.add(file);
+			          filePath_tFileList_1.add(file.getAbsolutePath());
+			        }
+			}
+		}
+                }
+              return true;
+            }
+          }
+      ); 
+      java.util.Collections.sort(list_tFileList_1);
+    
+    for (int i_tFileList_1 = 0; i_tFileList_1 < list_tFileList_1.size(); i_tFileList_1++){
+      java.io.File files_tFileList_1 = list_tFileList_1.get(i_tFileList_1);
+      String fileName_tFileList_1 = files_tFileList_1.getName();
+      
+      String currentFileName_tFileList_1 = files_tFileList_1.getName(); 
+      String currentFilePath_tFileList_1 = files_tFileList_1.getAbsolutePath();
+      String currentFileDirectory_tFileList_1 = files_tFileList_1.getParent();
+      String currentFileExtension_tFileList_1 = null;
+      
+      if (files_tFileList_1.getName().contains(".") && files_tFileList_1.isFile()){
+        currentFileExtension_tFileList_1 = files_tFileList_1.getName().substring(files_tFileList_1.getName().lastIndexOf(".") + 1);
+      } else{
+        currentFileExtension_tFileList_1 = "";
+      }
+      
+      NB_FILEtFileList_1 ++;
+      globalMap.put("tFileList_1_CURRENT_FILE", currentFileName_tFileList_1);
+      globalMap.put("tFileList_1_CURRENT_FILEPATH", currentFilePath_tFileList_1);
+      globalMap.put("tFileList_1_CURRENT_FILEDIRECTORY", currentFileDirectory_tFileList_1);
+      globalMap.put("tFileList_1_CURRENT_FILEEXTENSION", currentFileExtension_tFileList_1);
+      globalMap.put("tFileList_1_NB_FILE", NB_FILEtFileList_1);
+      
+ 
+
+
+
+/**
+ * [tFileList_1 begin ] stop
+ */
+	
+	/**
+	 * [tFileList_1 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileList_1";
+
+	
+
+ 
+
+
+	tos_count_tFileList_1++;
+
+/**
+ * [tFileList_1 main ] stop
+ */
+	
+	/**
+	 * [tFileList_1 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileList_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileList_1 process_data_begin ] stop
+ */
+	NB_ITERATE_tFileDelete_1++;
+	
+	
+				if(execStat){
+					runStat.updateStatOnConnection("iterate1", 1, "exec" + NB_ITERATE_tFileDelete_1);
+					//Thread.sleep(1000);
+				}				
+			
+
+	
+	/**
+	 * [tFileDelete_1 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tFileDelete_1", false);
+		start_Hash.put("tFileDelete_1", System.currentTimeMillis());
+		
+	
+	currentComponent="tFileDelete_1";
+
+	
+		int tos_count_tFileDelete_1 = 0;
+		
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 begin ] stop
+ */
+	
+	/**
+	 * [tFileDelete_1 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+class DeleteFoldertFileDelete_1{
+	 /**
+     * delete all the sub-files in 'file'
+     * 
+     * @param file
+     */
+	public boolean delete(java.io.File file) {
+        java.io.File[] files = file.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isFile()) {
+                files[i].delete();
+            } else if (files[i].isDirectory()) {
+                if (!files[i].delete()) {
+                    delete(files[i]);
+                }
+            }
+        }
+        deleteDirectory(file);
+        return file.delete();
+    }
+
+    /**
+     * delete all the sub-folders in 'file'
+     * 
+     * @param file
+     */
+    private void deleteDirectory(java.io.File file) {
+        java.io.File[] filed = file.listFiles();
+        for (int i = 0; i < filed.length; i++) {
+        	if(filed[i].isDirectory()) {
+            	deleteDirectory(filed[i]);
+            }
+            filed[i].delete();
+        }
+    }
+
+}
+    java.io.File file_tFileDelete_1=new java.io.File(((String)globalMap.get("tFileList_1_CURRENT_FILEPATH")));
+    if(file_tFileDelete_1.exists()&& file_tFileDelete_1.isFile()){
+    	if(file_tFileDelete_1.delete()){
+    		globalMap.put("tFileDelete_1_CURRENT_STATUS", "File deleted.");
+		}else{
+			globalMap.put("tFileDelete_1_CURRENT_STATUS", "No file deleted.");
+				throw new RuntimeException("File " + file_tFileDelete_1.getAbsolutePath() + " can not be deleted.");
+		}
+	}else{
+		globalMap.put("tFileDelete_1_CURRENT_STATUS", "File does not exist or is invalid.");
+			throw new RuntimeException("File " + file_tFileDelete_1.getAbsolutePath() + " does not exist or is invalid or is not a file.");
+	}
+	globalMap.put("tFileDelete_1_DELETE_PATH",((String)globalMap.get("tFileList_1_CURRENT_FILEPATH")));
+ 
+
+
+	tos_count_tFileDelete_1++;
+
+/**
+ * [tFileDelete_1 main ] stop
+ */
+	
+	/**
+	 * [tFileDelete_1 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tFileDelete_1 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 process_data_end ] stop
+ */
+	
+	/**
+	 * [tFileDelete_1 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+ok_Hash.put("tFileDelete_1", true);
+end_Hash.put("tFileDelete_1", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tFileDelete_1 end ] stop
+ */
+						if(execStat){
+							runStat.updateStatOnConnection("iterate1", 2, "exec" + NB_ITERATE_tFileDelete_1);
+						}				
+					
+
+
+
+
+	
+	/**
+	 * [tFileList_1 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileList_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileList_1 process_data_end ] stop
+ */
+	
+	/**
+	 * [tFileList_1 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileList_1";
+
+	
+
+  
+    }
+  globalMap.put("tFileList_1_NB_FILE", NB_FILEtFileList_1);
+  
+
+  
+ 
+
+ 
+
+ok_Hash.put("tFileList_1", true);
+end_Hash.put("tFileList_1", System.currentTimeMillis());
+
+
+
+
+/**
+ * [tFileList_1 end ] stop
+ */
+				}//end the resume
+
+				
+				    			if(resumeEntryMethodName == null || globalResumeTicket){
+				    				resumeUtil.addLog("CHECKPOINT", "CONNECTION:SUBJOB_OK:tFileList_1:OnSubjobOk", "", Thread.currentThread().getId() + "", "", "", "", "", "");
+								}	    				    			
+					    	
+								if(execStat){    	
+									runStat.updateStatOnConnection("OnSubjobOk3", 0, "ok");
+								} 
+							
+							tRunJob_1Process(globalMap); 
+						
+
+
+
+	
+			}catch(java.lang.Exception e){	
+				
+				TalendException te = new TalendException(e, currentComponent, globalMap);
+				
+				throw te;
+			}catch(java.lang.Error error){	
+				
+					runStat.stopThreadStat();
+				
+				throw error;
+			}finally{
+				
+				try{
+					
+	
+	/**
+	 * [tFileList_1 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileList_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileList_1 finally ] stop
+ */
+
+	
+	/**
+	 * [tFileDelete_1 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tFileDelete_1";
+
+	
+
+ 
+
+
+
+/**
+ * [tFileDelete_1 finally ] stop
+ */
+
+
+
+				}catch(java.lang.Exception e){	
+					//ignore
+				}catch(java.lang.Error error){
+					//ignore
+				}
+				resourceMap = null;
+			}
+		
+
+		globalMap.put("tFileList_1_SUBPROCESS_STATE", 1);
+	}
+	
 
 public void tRunJob_1Process(final java.util.Map<String, Object> globalMap) throws TalendException {
 	globalMap.put("tRunJob_1_SUBPROCESS_STATE", 0);
@@ -1976,12 +2484,12 @@ this.globalResumeTicket = true;//to run tPreJob
 this.globalResumeTicket = false;//to run others jobs
 
 try {
-errorCode = null;tRunJob_1Process(globalMap);
+errorCode = null;tFileList_1Process(globalMap);
 if(!"failure".equals(status)) { status = "end"; }
-}catch (TalendException e_tRunJob_1) {
-globalMap.put("tRunJob_1_SUBPROCESS_STATE", -1);
+}catch (TalendException e_tFileList_1) {
+globalMap.put("tFileList_1_SUBPROCESS_STATE", -1);
 
-e_tRunJob_1.printStackTrace();
+e_tFileList_1.printStackTrace();
 
 }
 
@@ -2159,6 +2667,6 @@ if (execStat) {
     ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- *     61287 characters generated by Talend Open Studio for Data Integration 
- *     on the 14 de setembro de 2022 21:43:47 BRT
+ *     72236 characters generated by Talend Open Studio for Data Integration 
+ *     on the 15 de setembro de 2022 20:42:34 BRT
  ************************************************************************************************/

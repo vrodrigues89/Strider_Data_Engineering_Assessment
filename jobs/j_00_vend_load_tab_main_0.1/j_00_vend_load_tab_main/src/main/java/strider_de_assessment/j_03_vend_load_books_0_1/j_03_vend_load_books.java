@@ -61,6 +61,9 @@ import java.util.Comparator;
 	//the import part of tJava_5
 	//import java.util.List;
 
+	//the import part of tJava_4
+	//import java.util.List;
+
 	//the import part of tJava_2
 	//import java.util.List;
 
@@ -501,6 +504,15 @@ private class TalendException extends Exception {
 					tFileList_1_onSubJobError(exception, errorComponent, globalMap);
 			}
 			
+			public void tJava_4_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+				
+				end_Hash.put(errorComponent, System.currentTimeMillis());
+				
+				status = "failure";
+				
+					tJava_4_onSubJobError(exception, errorComponent, globalMap);
+			}
+			
 			public void tJava_2_error(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 				
 				end_Hash.put(errorComponent, System.currentTimeMillis());
@@ -580,6 +592,11 @@ resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThrea
 
 			}
 			public void tFileList_1_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
+
+resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
+
+			}
+			public void tJava_4_onSubJobError(Exception exception, String errorComponent, final java.util.Map<String, Object> globalMap) throws TalendException {
 
 resumeUtil.addLog("SYSTEM_LOG", "NODE:"+ errorComponent, "", Thread.currentThread().getId()+ "", "FATAL", "", exception.getMessage(), ResumeUtil.getExceptionStackTrace(exception),"");
 
@@ -5615,7 +5632,7 @@ public void tDBConnection_1Process(final java.util.Map<String, Object> globalMap
 	
 	
 		 
-	final String decryptedPassword_tDBConnection_1 = routines.system.PasswordEncryptUtil.decryptPassword("enc:routine.encryption.key.v1:ea6rFFxZsYt/gggroT2VaT5COWU5FiKYhK95qgg0x+U=");
+	final String decryptedPassword_tDBConnection_1 = routines.system.PasswordEncryptUtil.decryptPassword("enc:routine.encryption.key.v1:n0yiECPzq3azuHVX3L/EljchYR56TKG3USafLzy/FUQ=");
 		String dbPwd_tDBConnection_1 = decryptedPassword_tDBConnection_1;
 	
 	
@@ -8546,11 +8563,11 @@ outputStruct output = new outputStruct();
 	
 	
 					if(execStat){				
-	       				runStat.updateStatOnConnection("row1", 3, 0);
+	       				runStat.updateStatOnConnection("output", 3, 0);
 					}           			
 				
 					if(execStat){				
-	       				runStat.updateStatOnConnection("output", 3, 0);
+	       				runStat.updateStatOnConnection("row1", 3, 0);
 					}           			
 				
 				if(execStat){
@@ -8611,6 +8628,9 @@ String fileName_tFileOutputDelimited_1 = "";
     boolean isFileGenerated_tFileOutputDelimited_1 = true;
     java.io.File filetFileOutputDelimited_1 = new java.io.File(fileName_tFileOutputDelimited_1);
     globalMap.put("tFileOutputDelimited_1_FILE_NAME",fileName_tFileOutputDelimited_1);
+        if(filetFileOutputDelimited_1.exists()){
+            isFileGenerated_tFileOutputDelimited_1 = false;
+        }
             int nb_line_tFileOutputDelimited_1 = 0;
             int splitedFileNo_tFileOutputDelimited_1 = 0;
             int currentRow_tFileOutputDelimited_1 = 0;
@@ -8630,12 +8650,8 @@ String fileName_tFileOutputDelimited_1 = "";
                         //routines.system.Row
                         java.io.Writer outtFileOutputDelimited_1 = null;
 
-                        java.io.File fileToDelete_tFileOutputDelimited_1 = new java.io.File(fileName_tFileOutputDelimited_1);
-                        if(fileToDelete_tFileOutputDelimited_1.exists()) {
-                            fileToDelete_tFileOutputDelimited_1.delete();
-                        }
                         outtFileOutputDelimited_1 = new java.io.BufferedWriter(new java.io.OutputStreamWriter(
-                        new java.io.FileOutputStream(fileName_tFileOutputDelimited_1, false),"UTF-8"));
+                        new java.io.FileOutputStream(fileName_tFileOutputDelimited_1, true),"UTF-8"));
                                     if(filetFileOutputDelimited_1.length()==0){
                                         outtFileOutputDelimited_1.write("name");
                                             outtFileOutputDelimited_1.write(OUT_DELIM_tFileOutputDelimited_1);
@@ -9434,7 +9450,7 @@ end_Hash.put("tFileList_1", System.currentTimeMillis());
 									runStat.updateStatOnConnection("OnSubjobOk1", 0, "ok");
 								} 
 							
-							tFileInputDelimited_1Process(globalMap); 
+							tJava_4Process(globalMap); 
 						
 
 
@@ -9571,6 +9587,213 @@ end_Hash.put("tFileList_1", System.currentTimeMillis());
 		
 
 		globalMap.put("tFileList_1_SUBPROCESS_STATE", 1);
+	}
+	
+
+public void tJava_4Process(final java.util.Map<String, Object> globalMap) throws TalendException {
+	globalMap.put("tJava_4_SUBPROCESS_STATE", 0);
+
+ final boolean execStat = this.execStat;
+	
+		String iterateId = "";
+	
+	
+	String currentComponent = "";
+	java.util.Map<String, Object> resourceMap = new java.util.HashMap<String, Object>();
+
+	try {
+			// TDI-39566 avoid throwing an useless Exception
+			boolean resumeIt = true;
+			if (globalResumeTicket == false && resumeEntryMethodName != null) {
+				String currentMethodName = new java.lang.Exception().getStackTrace()[0].getMethodName();
+				resumeIt = resumeEntryMethodName.equals(currentMethodName);
+			}
+			if (resumeIt || globalResumeTicket) { //start the resume
+				globalResumeTicket = true;
+
+
+
+		
+
+
+	
+	/**
+	 * [tJava_4 begin ] start
+	 */
+
+	
+
+	
+		
+		ok_Hash.put("tJava_4", false);
+		start_Hash.put("tJava_4", System.currentTimeMillis());
+		
+	
+	currentComponent="tJava_4";
+
+	
+		int tos_count_tJava_4 = 0;
+		
+
+
+System.out.println("Number of Files Processed: " + ((Integer)globalMap.get("tFileList_1_NB_FILE")));
+ 
+
+
+
+/**
+ * [tJava_4 begin ] stop
+ */
+	
+	/**
+	 * [tJava_4 main ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+	tos_count_tJava_4++;
+
+/**
+ * [tJava_4 main ] stop
+ */
+	
+	/**
+	 * [tJava_4 process_data_begin ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_4 process_data_begin ] stop
+ */
+	
+	/**
+	 * [tJava_4 process_data_end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_4 process_data_end ] stop
+ */
+	
+	/**
+	 * [tJava_4 end ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+ok_Hash.put("tJava_4", true);
+end_Hash.put("tJava_4", System.currentTimeMillis());
+
+   			if (((Integer)globalMap.get("tFileList_1_NB_FILE")) > 0) {
+   				
+					if(execStat){
+   	 					runStat.updateStatOnConnection("If3", 0, "true");
+					}
+				tFileInputDelimited_1Process(globalMap);
+			}
+
+			   
+   				else{
+					if(execStat){   
+   	 					runStat.updateStatOnConnection("If3", 0, "false");
+					}   	 
+   				}
+
+
+
+/**
+ * [tJava_4 end ] stop
+ */
+				}//end the resume
+
+				
+
+
+
+	
+			}catch(java.lang.Exception e){	
+				
+				TalendException te = new TalendException(e, currentComponent, globalMap);
+				
+				throw te;
+			}catch(java.lang.Error error){	
+				
+					runStat.stopThreadStat();
+				
+				throw error;
+			}finally{
+				
+				try{
+					
+	
+	/**
+	 * [tJava_4 finally ] start
+	 */
+
+	
+
+	
+	
+	currentComponent="tJava_4";
+
+	
+
+ 
+
+
+
+/**
+ * [tJava_4 finally ] stop
+ */
+				}catch(java.lang.Exception e){	
+					//ignore
+				}catch(java.lang.Error error){
+					//ignore
+				}
+				resourceMap = null;
+			}
+		
+
+		globalMap.put("tJava_4_SUBPROCESS_STATE", 1);
 	}
 	
 
@@ -10205,6 +10428,6 @@ if (execStat) {
     ResumeUtil resumeUtil = null;
 }
 /************************************************************************************************
- *     225895 characters generated by Talend Open Studio for Data Integration 
- *     on the 14 de setembro de 2022 21:43:47 BRT
+ *     229312 characters generated by Talend Open Studio for Data Integration 
+ *     on the 15 de setembro de 2022 20:42:34 BRT
  ************************************************************************************************/

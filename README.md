@@ -14,7 +14,11 @@ It’s Tuesday morning and the product manager you work with comes to you with s
 * WinSCP (For accessing vendor FTP);
 * Dbeaver (For accessing created tables and SQL queries).
 
-## Requirements for implementing the enviroment:
+## Current Architecture Diagram
+
+![Screenshot](\images\current_architecture.drawio)
+
+## Requirements for replicating the enviroment:
 * Windows 10+
 * Docker Desktop
 * WinSCP
