@@ -68,7 +68,7 @@ Tables: authors,books,movies,reviews,streams,users
 
 ## Data Pipeline Run
 
-Whenever the enviroment is started and all containers are up and running, the data pipeline is automatically scheduled to run the following way:
+Whenever the environment is started and all containers are up and running, the data pipeline is automatically scheduled to run the following way:
 
 Vendor Loading Tables: At every 3 minutes
 Internal Loading Tables: At every 7 minutes
@@ -172,14 +172,16 @@ Details of Data Pipeline Standard:
 1 - Log start datetime;
 2 - List source files to be processed;
 3 - For each file, Read, Transform and append to a Staging File (\talendinfra\data\staging);
-4 - Read Staging File;
-5 - Treat nulls;
-6 - Generate a Hash for each record. This does not consider primary key columns;
-7 - Read target table as Lookup;
+4 - Log how many files have been processed;
+5 - If the number of files processed is greater than 0 then continue, else go to Post-Job.
+6 - Read Staging File;
+7 - Treat nulls;
 8 - Generate a Hash for each record. This does not consider primary key columns;
-9 - Join source x lookup and check the differences;
+9 - Read target table as Lookup;
+10 - Generate a Hash for each record. This does not consider primary key columns;
+11 - Join source x lookup and check the differences;
 10 - If the record is new then INSERT to target table
-11 - If the record is not new and there's any change in the non-primary key columns then UPDATE to target table.
+12 - If the record is not new and there's any change in the non-primary key columns then UPDATE to target table.
 
 * Post-Job:
 
